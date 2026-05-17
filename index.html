@@ -148,6 +148,188 @@
             font-size: 1.3rem;
         }
 
+        /* ── CALCULATOR ── */
+        .calc-panel {
+            position: static;
+            width: 100%;
+            max-width: 560px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-top: 4px solid var(--primary-gold);
+            border-radius: 6px;
+            padding: 2rem 2rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+            z-index: 10;
+        }
+
+        .calc-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+        }
+
+        .calc-tabs {
+            display: flex;
+            border-bottom: 1px solid #e5e5e5;
+            margin-bottom: 1.1rem;
+        }
+
+        .calc-tab {
+            flex: 1;
+            padding: 0.5rem 0.25rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #999;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.25s;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .calc-tab.active {
+            color: var(--dark-blue);
+            border-bottom-color: var(--primary-gold);
+        }
+
+        .calc-form { display: none; }
+        .calc-form.active { display: block; }
+
+        .calc-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .calc-row.full { grid-template-columns: 1fr; }
+
+        .calc-label {
+            display: block;
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: 0.25rem;
+        }
+
+        .calc-input, .calc-select {
+            width: 100%;
+            padding: 0.55rem 0.75rem;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            color: var(--dark-blue);
+            background: #fff;
+            appearance: none;
+            -webkit-appearance: none;
+            transition: border-color 0.2s;
+        }
+
+        .calc-input:focus, .calc-select:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+        }
+
+        .calc-price-box {
+            display: none;
+            margin: 0.75rem 0;
+            padding: 0.65rem 0.85rem;
+            background: #fdf8f0;
+            border-left: 3px solid var(--primary-gold);
+            border-radius: 3px;
+        }
+
+        .calc-price-label {
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #999;
+        }
+
+        .calc-price-value {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            line-height: 1.15;
+        }
+
+        .calc-price-note {
+            font-size: 0.65rem;
+            color: #aaa;
+            margin-top: 0.1rem;
+        }
+
+        .calc-btn {
+            display: block;
+            width: 100%;
+            padding: 0.7rem;
+            background: var(--primary-gold);
+            color: var(--dark-blue);
+            border: none;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 0.85rem;
+            transition: background 0.2s, transform 0.15s;
+        }
+
+        .calc-btn:hover {
+            background: #a87e3a;
+            transform: translateY(-1px);
+        }
+
+        .calc-btn:disabled {
+            opacity: 0.6;
+            cursor: default;
+            transform: none;
+        }
+
+        .calc-success {
+            display: none;
+            margin-top: 0.75rem;
+            padding: 0.65rem 0.8rem;
+            background: #f0faf4;
+            border: 1px solid #a3d9b1;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #1a6636;
+            text-align: center;
+        }
+
+        .calc-error {
+            display: none;
+            margin-top: 0.75rem;
+            padding: 0.65rem 0.8rem;
+            background: #fff5f5;
+            border: 1px solid #feb2b2;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #c53030;
+            text-align: center;
+        }
+
+        @media (max-width: 1024px) {
+            .calc-panel {
+                padding: 1.5rem;
+            }
+        }
+
         /* Bottom Bar */
         .bottom-bar {
             background-color: var(--light-bg);
@@ -295,6 +477,164 @@
         </div>
     </section>
 
+    <!-- BOOKING SECTION -->
+    <section style="background:#f4f4f4;padding:48px 5%;">
+      <div class="calc-panel" id="calcPanel">
+      <div class="calc-title">Book Your Transfer</div>
+
+      <div class="calc-tabs">
+        <button class="calc-tab active" data-ctab="cdist">By Distance</button>
+        <button class="calc-tab" data-ctab="chour">By Hour</button>
+      </div>
+
+      <!-- By Distance -->
+      <form class="calc-form active" id="cdist" action="https://formspree.io/f/xojbazan" method="POST" novalidate>
+        <input type="hidden" name="booking_type" value="By Distance" />
+        <input type="hidden" name="estimated_price" id="c-hidden-price" value="" />
+
+        <div class="calc-row">
+          <div>
+            <label class="calc-label">Your Name *</label>
+            <input class="calc-input" type="text" name="name" placeholder="John Smith" required />
+          </div>
+          <div>
+            <label class="calc-label">Phone *</label>
+            <input class="calc-input" type="tel" name="phone" placeholder="+34 600..." required />
+          </div>
+        </div>
+        <div class="calc-row full">
+          <label class="calc-label">Email *</label>
+          <input class="calc-input" type="email" name="email" placeholder="john@example.com" required />
+        </div>
+        <div class="calc-row">
+          <div>
+            <label class="calc-label">Date *</label>
+            <input class="calc-input" type="date" name="pickup_date" id="c-date" required />
+          </div>
+          <div>
+            <label class="calc-label">Time *</label>
+            <input class="calc-input" type="time" name="pickup_time" value="10:00" required />
+          </div>
+        </div>
+        <div class="calc-row full">
+          <label class="calc-label">From *</label>
+          <select class="calc-select" name="from" id="c-from" onchange="cCalcPrice()" required>
+            <option value="">— Select city —</option>
+            <option value="Alicante Airport (ALC)">Alicante Airport (ALC)</option>
+            <option value="Alicante City">Alicante City</option>
+            <option value="Benidorm">Benidorm</option>
+            <option value="Calpe">Calpe</option>
+            <option value="Altea">Altea</option>
+            <option value="Torrevieja">Torrevieja</option>
+            <option value="Orihuela Costa">Orihuela Costa</option>
+            <option value="Murcia">Murcia</option>
+            <option value="Valencia">Valencia</option>
+          </select>
+        </div>
+        <div class="calc-row full">
+          <label class="calc-label">To *</label>
+          <select class="calc-select" name="to" id="c-to" onchange="cCalcPrice()" required>
+            <option value="">— Select city —</option>
+            <option value="Alicante Airport (ALC)">Alicante Airport (ALC)</option>
+            <option value="Alicante City">Alicante City</option>
+            <option value="Benidorm">Benidorm</option>
+            <option value="Calpe">Calpe</option>
+            <option value="Altea">Altea</option>
+            <option value="Torrevieja">Torrevieja</option>
+            <option value="Orihuela Costa">Orihuela Costa</option>
+            <option value="Murcia">Murcia</option>
+            <option value="Valencia">Valencia</option>
+          </select>
+        </div>
+        <div class="calc-row full">
+          <label class="calc-label">Transfer Type *</label>
+          <select class="calc-select" name="transfer_type" id="c-type" onchange="cCalcPrice()" required>
+            <option value="One Way">One Way</option>
+            <option value="Return">Return (×2)</option>
+          </select>
+        </div>
+
+        <div class="calc-price-box" id="c-price-box">
+          <div class="calc-price-label">Estimated Price</div>
+          <div class="calc-price-value" id="c-price-val"></div>
+          <div class="calc-price-note">Fixed price · No hidden fees</div>
+        </div>
+
+        <button type="submit" class="calc-btn" id="c-dist-btn">Book This Ride</button>
+        <div class="calc-success" id="c-dist-ok">✓ Booking received! We’ll contact you within 1 hour.</div>
+        <div class="calc-error" id="c-dist-err">Something went wrong. Please try again.</div>
+      </form>
+
+      <!-- By Hour -->
+      <form class="calc-form" id="chour" action="https://formspree.io/f/xojbazan" method="POST" novalidate>
+        <input type="hidden" name="booking_type" value="By Hour" />
+        <input type="hidden" name="estimated_price" id="c-h-hidden" value="€55" />
+
+        <div class="calc-row">
+          <div>
+            <label class="calc-label">Your Name *</label>
+            <input class="calc-input" type="text" name="name" placeholder="John Smith" required />
+          </div>
+          <div>
+            <label class="calc-label">Phone *</label>
+            <input class="calc-input" type="tel" name="phone" placeholder="+34 600..." required />
+          </div>
+        </div>
+        <div class="calc-row full">
+          <label class="calc-label">Email *</label>
+          <input class="calc-input" type="email" name="email" placeholder="john@example.com" required />
+        </div>
+        <div class="calc-row">
+          <div>
+            <label class="calc-label">Date *</label>
+            <input class="calc-input" type="date" name="pickup_date" id="c-h-date" required />
+          </div>
+          <div>
+            <label class="calc-label">Time *</label>
+            <input class="calc-input" type="time" name="pickup_time" value="10:00" required />
+          </div>
+        </div>
+        <div class="calc-row full">
+          <label class="calc-label">Pickup City *</label>
+          <select class="calc-select" name="pickup_city" required>
+            <option value="">— Select city —</option>
+            <option value="Alicante Airport (ALC)">Alicante Airport (ALC)</option>
+            <option value="Alicante City">Alicante City</option>
+            <option value="Benidorm">Benidorm</option>
+            <option value="Calpe">Calpe</option>
+            <option value="Altea">Altea</option>
+            <option value="Torrevieja">Torrevieja</option>
+            <option value="Murcia">Murcia</option>
+            <option value="Valencia">Valencia</option>
+          </select>
+        </div>
+        <div class="calc-row full">
+          <label class="calc-label">Duration *</label>
+          <select class="calc-select" name="duration" id="c-h-dur" onchange="cCalcHourly()" required>
+            <option value="1 hour — €55">1 hour — €55</option>
+            <option value="2 hours — €100">2 hours — €100</option>
+            <option value="3 hours — €145">3 hours — €145</option>
+            <option value="4 hours — €185">4 hours — €185</option>
+            <option value="6 hours — €265">6 hours — €265</option>
+            <option value="8 hours — €340">8 hours — €340</option>
+            <option value="12 hours — €490">12 hours — €490</option>
+            <option value="24 hours — €850">24 hours — €850</option>
+          </select>
+        </div>
+
+        <div class="calc-price-box" style="display:block;">
+          <div class="calc-price-label">Estimated Price</div>
+          <div class="calc-price-value" id="c-h-price">€55</div>
+          <div class="calc-price-note">Fixed price · No hidden fees</div>
+        </div>
+
+        <button type="submit" class="calc-btn" id="c-hour-btn">Book This Ride</button>
+        <div class="calc-success" id="c-hour-ok">✓ Booking received! We’ll contact you within 1 hour.</div>
+        <div class="calc-error" id="c-hour-err">Something went wrong. Please try again.</div>
+      </form>
+    </div>
+    </section>
+
     <footer class="bottom-bar">
         <div class="features-row">
             <div class="feature-item">✈️ AIRPORT TRANSFERS<span>ALICANTE • VALENCIA • MURCIA</span></div>
@@ -310,5 +650,113 @@
         </div>
     </footer>
 
+  <script>
+    // Tabs
+    document.querySelectorAll('.calc-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.calc-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.calc-form').forEach(f => f.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.ctab).classList.add('active');
+      });
+    });
+
+    // Price matrix
+    const cPrices = {
+      'Alicante Airport (ALC)': { 'Alicante City': 35, 'Benidorm': 65, 'Calpe': 85, 'Altea': 75, 'Torrevieja': 55, 'Orihuela Costa': 60, 'Murcia': 95, 'Valencia': 185 },
+      'Alicante City':          { 'Alicante Airport (ALC)': 35, 'Benidorm': 60, 'Calpe': 80, 'Altea': 70, 'Torrevieja': 50, 'Orihuela Costa': 55, 'Murcia': 90, 'Valencia': 180 },
+      'Benidorm':               { 'Alicante Airport (ALC)': 65, 'Alicante City': 60, 'Calpe': 35, 'Altea': 25, 'Torrevieja': 90, 'Orihuela Costa': 95, 'Murcia': 130, 'Valencia': 130 },
+      'Calpe':                  { 'Alicante Airport (ALC)': 85, 'Alicante City': 80, 'Benidorm': 35, 'Altea': 20, 'Torrevieja': 110, 'Orihuela Costa': 115, 'Murcia': 150, 'Valencia': 110 },
+      'Altea':                  { 'Alicante Airport (ALC)': 75, 'Alicante City': 70, 'Benidorm': 25, 'Calpe': 20, 'Torrevieja': 100, 'Orihuela Costa': 105, 'Murcia': 140, 'Valencia': 115 },
+      'Torrevieja':             { 'Alicante Airport (ALC)': 55, 'Alicante City': 50, 'Benidorm': 90, 'Calpe': 110, 'Altea': 100, 'Orihuela Costa': 30, 'Murcia': 65, 'Valencia': 200 },
+      'Orihuela Costa':         { 'Alicante Airport (ALC)': 60, 'Alicante City': 55, 'Benidorm': 95, 'Calpe': 115, 'Altea': 105, 'Torrevieja': 30, 'Murcia': 60, 'Valencia': 210 },
+      'Murcia':                 { 'Alicante Airport (ALC)': 95, 'Alicante City': 90, 'Benidorm': 130, 'Calpe': 150, 'Altea': 140, 'Torrevieja': 65, 'Orihuela Costa': 60, 'Valencia': 230 },
+      'Valencia':               { 'Alicante Airport (ALC)': 185, 'Alicante City': 180, 'Benidorm': 130, 'Calpe': 110, 'Altea': 115, 'Torrevieja': 200, 'Orihuela Costa': 210, 'Murcia': 230 }
+    };
+
+    function cCalcPrice() {
+      const from = document.getElementById('c-from').value;
+      const to   = document.getElementById('c-to').value;
+      const mult = document.getElementById('c-type').value === 'Return' ? 2 : 1;
+      const box  = document.getElementById('c-price-box');
+      const val  = document.getElementById('c-price-val');
+      const hid  = document.getElementById('c-hidden-price');
+      if (!from || !to || from === to) { box.style.display = 'none'; hid.value = ''; return; }
+      const base = cPrices[from] && cPrices[from][to];
+      if (!base) { box.style.display = 'none'; hid.value = ''; return; }
+      const total = '€' + (base * mult);
+      box.style.display = 'block';
+      val.textContent = total;
+      hid.value = total;
+    }
+
+    const cHourly = { '1 hour — €55': 55, '2 hours — €100': 100, '3 hours — €145': 145, '4 hours — €185': 185, '6 hours — €265': 265, '8 hours — €340': 340, '12 hours — €490': 490, '24 hours — €850': 850 };
+    function cCalcHourly() {
+      const key = document.getElementById('c-h-dur').value;
+      const price = '€' + (cHourly[key] || 55);
+      document.getElementById('c-h-price').textContent = price;
+      document.getElementById('c-h-hidden').value = price;
+    }
+
+    // AJAX submit for both calc forms
+    function setupCalcForm(formId, btnId, okId, errId) {
+      const form = document.getElementById(formId);
+      const btn  = document.getElementById(btnId);
+      const ok   = document.getElementById(okId);
+      const err  = document.getElementById(errId);
+      if (!form) return;
+
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        // Validate
+        let valid = true;
+        this.querySelectorAll('[required]').forEach(field => {
+          if (!field.value || !field.value.trim()) {
+            field.style.borderColor = '#e53e3e';
+            if (valid) field.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            valid = false;
+          } else {
+            field.style.borderColor = '';
+          }
+        });
+        if (!valid) return;
+
+        btn.textContent = 'Sending…';
+        btn.disabled = true;
+        ok.style.display = 'none';
+        err.style.display = 'none';
+
+        try {
+          const res = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+          });
+          if (res.ok) {
+            form.querySelectorAll('input:not([type=hidden])').forEach(f => f.value = f.defaultValue || '');
+            form.querySelectorAll('select').forEach(s => s.selectedIndex = 0);
+            document.getElementById('c-price-box') && (document.getElementById('c-price-box').style.display = 'none');
+            document.getElementById('c-hidden-price') && (document.getElementById('c-hidden-price').value = '');
+            ok.style.display = 'block';
+          } else { throw new Error(); }
+        } catch {
+          err.style.display = 'block';
+        } finally {
+          btn.textContent = 'Book This Ride';
+          btn.disabled = false;
+        }
+      });
+
+      form.addEventListener('input',  e => { if (e.target.required) e.target.style.borderColor = ''; });
+      form.addEventListener('change', e => { if (e.target.required) e.target.style.borderColor = ''; });
+    }
+
+    setupCalcForm('cdist', 'c-dist-btn', 'c-dist-ok', 'c-dist-err');
+    setupCalcForm('chour', 'c-hour-btn', 'c-hour-ok', 'c-hour-err');
+
+    // Default today
+    const cToday = new Date().toISOString().split('T')[0];
+    ['c-date', 'c-h-date'].forEach(id => { const el = document.getElementById(id); if (el) el.value = cToday; });
+  </script>
 </body>
 </html>
