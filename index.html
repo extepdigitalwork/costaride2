@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Costa Ride Transfers</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+        :root {
+            --primary-gold: #c19b52;
+            --dark-blue: #0b1d35;
+            --light-bg: #ffffff;
+            --text-grey: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f4f4f4;
+            color: var(--text-grey);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            flex-grow: 1;
+            background-image: url('https://dl.dropboxusercontent.com/scl/fi/37de3it31p7z3cmrtsos3/hero.png?rlkey=cgddvwasi9ek50gnbmunbwiwv');
+            background-size: cover;
+            /* TUTAJ ZMIANA: Podniesienie tła na komputerach (kadr skupia się niżej na zdjęciu, więc podnosi auto do góry) */
+            background-position: right 85%; 
+            position: relative;
+            display: flex;
+        }
+
+        /* Left Gradient Overlay */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 55%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0.95) 30%, rgba(255,255,255,0.65) 60%, rgba(255,255,255,0) 100%);
+            display: flex;
+            flex-direction: column;
+            padding: 0 5%; 
+            overflow-y: auto;
+        }
+
+        .overlay-content {
+            margin: auto 0; 
+            padding: 40px 0; 
+            width: 100%;
+        }
+
+        .hero-overlay::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+
+        /* Logo Area */
+        .logo-container {
+            margin-bottom: 2.5rem;
+            max-width: 450px;
+        }
+        
+        .logo-image {
+            width: 170px;
+            height: auto;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        /* Napis COSTA RIDE */
+        .logo-text {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 5px;
+            white-space: nowrap;
+        }
+
+        .text-dark { color: var(--dark-blue); }
+        .text-gold { color: var(--primary-gold); }
+
+        .logo-subtext {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 8px;
+            color: var(--text-grey);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            max-width: 380px;
+            margin-top: 10px;
+        }
+
+        .logo-subtext::before, .logo-subtext::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background-color: var(--primary-gold);
+        }
+
+        /* Services List */
+        .services-list {
+            list-style: none;
+            max-width: 400px;
+        }
+
+        .services-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.3rem;
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.4;
+            border-bottom: 1px solid rgba(193, 155, 82, 0.3);
+            padding-bottom: 12px;
+        }
+
+        .services-list li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .icon-placeholder {
+            width: 45px;
+            height: 45px;
+            border: 1px solid var(--primary-gold);
+            border-radius: 5px;
+            margin-right: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary-gold);
+            font-size: 1.3rem;
+        }
+
+        /* Bottom Bar */
+        .bottom-bar {
+            background-color: var(--light-bg);
+            padding: 15px 5%;
+            display: flex;
+            flex-direction: column;
+            border-top: 4px solid var(--primary-gold);
+            z-index: 10;
+        }
+
+        .features-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .feature-item {
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .feature-item span {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: #666;
+            margin-top: 3px;
+        }
+
+        .contacts-row {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark-blue);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Responsive - Telefony i małe ekrany */
+        @media (max-width: 1024px) {
+            body {
+                overflow: auto;
+                height: auto;
+            }
+            .hero {
+                min-height: 80vh;
+                /* Na telefonach zostaje tak jak było, wyśrodkowane na aucie */
+                background-position: 65% center; 
+            }
+            .hero-overlay {
+                width: 100%;
+                background: rgba(255,255,255,0.85); 
+                position: relative;
+                padding: 40px 20px;
+            }
+            .overlay-content {
+                margin: 0 auto;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center; 
+                text-align: center;
+            }
+            .logo-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center; 
+                margin-bottom: 2rem;
+            }
+            .logo-image {
+                width: 120px;
+            }
+            .logo-text {
+                font-size: 2.2rem; 
+                white-space: normal;
+            }
+            .services-list {
+                display: flex;
+                flex-direction: column;
+                align-items: center; 
+                width: 100%;
+            }
+            .services-list li {
+                width: 100%;
+                max-width: 280px; 
+                text-align: left;
+            }
+            .features-row {
+                flex-wrap: wrap;
+                gap: 20px;
+                justify-content: center;
+            }
+            .contacts-row {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <div class="hero-overlay">
+            <div class="overlay-content">
+                <div class="logo-container">
+                    <img src="https://dl.dropboxusercontent.com/scl/fi/3xib2ohq6iojuurhx63wc/logocostaride.png?rlkey=oud43462yr0o5fzbc25sxokzp" alt="R Logo" class="logo-image">
+                    
+                    <div class="logo-text">
+                        <span class="text-dark">COSTA</span> <span class="text-gold">RIDE</span>
+                    </div>
+
+                    <div class="logo-subtext">TRANSFERS</div>
+                </div>
+
+                <ul class="services-list">
+                    <li>
+                        <div class="icon-placeholder">👔</div>
+                        <div>PROFESSIONAL<br>DRIVERS</div>
+                    </li>
+                    <li>
+                        <div class="icon-placeholder">💺</div>
+                        <div>COMFORTABLE<br>VEHICLES</div>
+                    </li>
+                    <li>
+                        <div class="icon-placeholder">✈️</div>
+                        <div>AIRPORT TRANSFERS<br><span style="font-weight:400; color:#666;">ALC, VLC, MJV</span></div>
+                    </li>
+                    <li>
+                        <div class="icon-placeholder">🏢</div>
+                        <div>HOTELS, VILLAS,<br>BUSINESS TRIPS</div>
+                    </li>
+                    <li>
+                        <div class="icon-placeholder">✔️</div>
+                        <div>SAFE, RELIABLE<br>& ON TIME</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bottom-bar">
+        <div class="features-row">
+            <div class="feature-item">✈️ AIRPORT TRANSFERS<span>ALICANTE • VALENCIA • MURCIA</span></div>
+            <div class="feature-item">🏨 HOTELS & RESORTS<span>BENIDORM • COSTA BLANCA</span></div>
+            <div class="feature-item">💼 BUSINESS TRAVEL<span>MEETINGS & EVENTS</span></div>
+            <div class="feature-item">📶 FREE WIFI<span>ON BOARD</span></div>
+            <div class="feature-item">🕒 24/7 SERVICE<span>ALWAYS ON TIME</span></div>
+        </div>
+        <div class="contacts-row">
+            <div class="contact-item">🌐 costaride.eu</div>
+            <div class="contact-item">✉️ info@costaride.eu</div>
+            <div class="contact-item">📞 +34 614 120 036</div>
+        </div>
+    </footer>
+
+</body>
+</html>
